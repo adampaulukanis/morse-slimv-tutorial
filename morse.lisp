@@ -40,7 +40,11 @@
     (#\9 "----.")
     (#\. ".-.-.-")
     (#\, "--..--")
-    (#\? "..--..")))
+    (#\? "..--..")
+    (#\/ "-..-.")
+    (#\+ ".-.-.")
+    (#\% "-..-.")
+    (#\! "-.-.--")))
 
 (defun character-to-morse (character)
   (second (assoc character *morse-mapping* :test #'char-equal)))
