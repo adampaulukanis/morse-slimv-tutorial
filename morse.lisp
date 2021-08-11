@@ -1,3 +1,5 @@
+(declaim (optimize (speed 0) (safety 3) (debug 3)))
+
 (defpackage :morse
   (:use :cl))
 
@@ -48,3 +50,14 @@
 
 (defun character-to-morse (character)
   (second (assoc character *morse-mapping* :test #'char-equal)))
+
+(defun morse-to-character (morse-string)
+  (first (find morse-string *morse-mapping* :test #'string= :key #'second)))
+
+(defun string-to-morse (string)
+  (with-output-to-string (morse)
+    (write-string (character-to-morse (aref string 0)) morse)
+    (loop
+      for char across (subseq string 1)
+      do (write-char #\Space morse)
+      do (write-string (character-to-morse char) morse))))
