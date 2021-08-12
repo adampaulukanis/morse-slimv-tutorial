@@ -61,3 +61,20 @@
       for char across (subseq string 1)
       do (write-char #\Space morse)
       do (write-string (character-to-morse char) morse))))
+
+(string-to-morse "Adam")
+(string-to-morse "sos")
+
+(ql:quickload :split-sequence)
+
+(defun morse-to-string (string)
+  (with-output-to-string (character-stream)
+    (loop
+      for morse-char in (split-sequence:split-sequence #\Space string
+                                                       :remove-empty-subseqs t)
+      do (write-char (morse-to-character morse-char) character-stream))))
+
+(string-to-morse "adam")
+(morse-to-string ".- -.. .- --")
+(morse-to-string ".- -.. .- -- ")
+(morse-to-string (string-to-morse "adam"))
